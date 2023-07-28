@@ -26,7 +26,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createUser(input: RegisterInput): String
+    createUser(input: RegisterInput): User
     authenticateUser(input: LoginInput): Token
   }
 `;

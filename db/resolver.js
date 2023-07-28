@@ -6,21 +6,19 @@ dotenv.config();
 
 //crea y  firma un JWT
 const createToken = (user, keySecret, expiresIn) => {
-  console.log(user);
   const { id, email } = user;
 
   return jwt.sign({ id, email }, keySecret, { expiresIn });
 };
 
 const resolvers = {
-  //Query: {},
   Mutation: {
     //register user
     createUser: async (_, { input }) => {
-      const { email, password } = input;
+      const { email, password, name } = input;
 
       //si el usuario existe
-      const userExists = await Usgiter.findOne({ email });
+      const userExists = await User.findOne({ email });
 
       //si el usuario existe
       if (userExists) {
@@ -36,7 +34,8 @@ const resolvers = {
         const newUser = new User(input);
         newUser.save();
 
-        return "Usuario creado correctamente!";
+        //return "Usuario creado correctamente!";
+        return { name, email };
       } catch (error) {
         console.log(error);
       }
